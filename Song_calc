@@ -26,13 +26,13 @@ zeros_deck = zeros_T - zeros_hand 'starting number of zeros in deck
 
         outcome = Rnd 'card draw 1
         'determine odds
-        hit_first = Application.WorksheetFunction.HypGeom_Dist(1, 2, zeros_deck, deck, False)
+        hit_first = Application.WorksheetFunction.Binom_Dist(1, 1, zeros_deck/deck, False)
         If outcome <= hit_first Then 'hit a zero on the first card draw
         zeros_hand = zeros_hand + 1
         zeros_deck = zeros_deck - 1
         deck = deck - 1
         outcome = Rnd  'card draw 2 if you hit on 1
-        hit_second = Application.WorksheetFunction.HypGeom_Dist(1, 1, zeros_deck, deck, False)
+        hit_second = Application.WorksheetFunction.Binom_Dist(1, 1, zeros_deck/deck, False)
             If outcome <= hit_second Then 'hit a zero on the second
             zeros_hand = zeros_hand + 1
             zeros_deck = zeros_deck - 1
@@ -43,7 +43,7 @@ zeros_deck = zeros_T - zeros_hand 'starting number of zeros in deck
         Else  ' miss on the first card draw
         deck = deck - 1
         outcome = Int((deck * Rnd) + 1) 'card draw 2
-        hit_second = Application.WorksheetFunction.HypGeom_Dist(1, 1, zeros_deck, deck, False)
+        hit_second = Application.WorksheetFunction.Binom_Dist(1, 1, zeros_deck/deck, False)
             If outcome <= hit_second Then 'hit a zero on the second
             zeros_hand = zeros_hand + 1
             zeros_deck = zeros_deck - 1
