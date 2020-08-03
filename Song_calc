@@ -1,0 +1,68 @@
+Sub Song_chain()
+' determines number of 0s needed to deck yourself X% of the time
+' starting deck 60 cards
+' start with 50 cards in deck with Song in Play
+' starting number of 0s needed
+'cast a 0, draw 2, if number of 0s in hand>0 repeat, if not end
+
+Randomize
+Dim zeros_hand As Integer
+Dim deck As Double 'deck counter
+Dim zeros_T As Double 'total zeros
+Dim zeros_deck As Double 'zeros remaining in the deck
+Dim W_L(1)
+    W_L(0) = 0
+    W_L(1) = 0
+
+
+For n = 1 To 10000 'how many itterations
+deck = Cells(2, 3) 'starting deck size source
+zeros_T = Cells(3, 3) 'tatal 0s in deck source
+zeros_hand = Cells(4, 3) 'starting number of zeros in hand
+zeros_deck = zeros_T - zeros_hand 'starting number of zeros in deck
+
+    While zeros_hand > 0 And deck > 2
+        zeros_hand = zeros_hand - 1 'cast the zero
+
+        outcome = Rnd 'card draw 1
+        'determine odds
+        hit_first = Application.WorksheetFunction.HypGeom_Dist(1, 2, zeros_deck, deck, False)
+        If outcome <= hit_first Then 'hit a zero on the first card draw
+        zeros_hand = zeros_hand + 1
+        zeros_deck = zeros_deck - 1
+        deck = deck - 1
+        outcome = Rnd  'card draw 2 if you hit on 1
+        hit_second = Application.WorksheetFunction.HypGeom_Dist(1, 1, zeros_deck, deck, False)
+            If outcome <= hit_second Then 'hit a zero on the second
+            zeros_hand = zeros_hand + 1
+            zeros_deck = zeros_deck - 1
+            deck = deck - 1
+            Else 'miss on the second card draw if you hit on 1
+            deck = deck - 1
+            End If
+        Else  ' miss on the first card draw
+        deck = deck - 1
+        outcome = Int((deck * Rnd) + 1) 'card draw 2
+        hit_second = Application.WorksheetFunction.HypGeom_Dist(1, 1, zeros_deck, deck, False)
+            If outcome <= hit_second Then 'hit a zero on the second
+            zeros_hand = zeros_hand + 1
+            zeros_deck = zeros_deck - 1
+            deck = deck - 1
+            Else 'miss on the second card draw and missed on the first
+            deck = deck - 1
+            End If
+        End If
+     Wend
+
+    'Do you win?
+    If deck > 2 Then
+    W_L(1) = W_L(1) + 1 'count the loss
+    Else
+    W_L(0) = W_L(0) + 1 'count the win
+    End If
+Next n
+
+Cells(5, 3) = W_L(0) / 100 'percent wins
+Cells(6, 3) = W_L(1) / 100 'percent losses
+
+End Sub
