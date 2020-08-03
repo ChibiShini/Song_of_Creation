@@ -11,9 +11,9 @@ Dim zeros_hand As Integer
 Dim deck As Double 'deck counter
 Dim zeros_T As Double 'total zeros
 Dim zeros_deck As Double 'zeros remaining in deck
-Dim W_L(1)
-    W_L(0) = 0
-    W_L(1) = 0
+Dim W_L(1) 'counts wins and losses
+    W_L(0) = 0 'wins
+    W_L(1) = 0 'columns
 
 
 For n = 1 To 10000 'how many itterations
