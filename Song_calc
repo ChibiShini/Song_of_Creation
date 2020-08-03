@@ -1,54 +1,54 @@
 Sub Song_chain()
 ' determines number of 0s needed to deck yourself X% of the time
 ' starting deck 60 cards
+'assume turn 4, 4 lands in play, Song of Creation in Play
 ' start with 50 cards in deck with Song in Play
 ' starting number of 0s needed
-'cast a 0, draw 2, if number of 0s in hand>0 repeat, if not end
+'cast a 0, draw 2, if number of 0s>0 repeat, if not end
 
 Randomize
 Dim zeros_hand As Integer
 Dim deck As Double 'deck counter
 Dim zeros_T As Double 'total zeros
-Dim zeros_deck As Double 'zeros remaining in the deck
+Dim zeros_deck As Double 'zeros remaining in deck
 Dim W_L(1)
     W_L(0) = 0
     W_L(1) = 0
 
 
 For n = 1 To 10000 'how many itterations
-deck = Cells(2, 3) 'starting deck size source
-zeros_T = Cells(3, 3) 'tatal 0s in deck source
-zeros_hand = Cells(4, 3) 'starting number of zeros in hand
-zeros_deck = zeros_T - zeros_hand 'starting number of zeros in deck
+deck = Cells(2, 3) 'source for deck size
+zeros_T = Cells(3, 3) 'source for total zeros
+zeros_hand = Cells(4, 3) 'source for zeros in hand @ start
+zeros_deck = zeros_T - zeros_hand
 
     While zeros_hand > 0 And deck > 2
-        zeros_hand = zeros_hand - 1 'cast the zero
+        zeros_hand = zeros_hand - 1 'cast a zero
 
         outcome = Rnd 'card draw 1
-        'determine odds
-        hit_first = Application.WorksheetFunction.Binom_Dist(1, 1, zeros_deck/deck, False)
-        If outcome <= hit_first Then 'hit a zero on the first card draw
+        hit_first = zeros_deck / deck 'odds to draw a zero
+        If outcome <= hit_first Then 'hit a zero on the first
         zeros_hand = zeros_hand + 1
         zeros_deck = zeros_deck - 1
         deck = deck - 1
         outcome = Rnd  'card draw 2 if you hit on 1
-        hit_second = Application.WorksheetFunction.Binom_Dist(1, 1, zeros_deck/deck, False)
+        hit_second = zeros_deck / deck 'odds to draw a zero
             If outcome <= hit_second Then 'hit a zero on the second
             zeros_hand = zeros_hand + 1
             zeros_deck = zeros_deck - 1
             deck = deck - 1
-            Else 'miss on the second card draw if you hit on 1
+            Else 'miss on the second
             deck = deck - 1
             End If
         Else  ' miss on the first card draw
         deck = deck - 1
-        outcome = Int((deck * Rnd) + 1) 'card draw 2
-        hit_second = Application.WorksheetFunction.Binom_Dist(1, 1, zeros_deck/deck, False)
+        outcome = Rnd 'second card draw if you missed on the first
+        hit_second = zeros_deck / deck 'odds to hit a zero
             If outcome <= hit_second Then 'hit a zero on the second
             zeros_hand = zeros_hand + 1
             zeros_deck = zeros_deck - 1
             deck = deck - 1
-            Else 'miss on the second card draw and missed on the first
+            Else 'miss on the second card draw
             deck = deck - 1
             End If
         End If
