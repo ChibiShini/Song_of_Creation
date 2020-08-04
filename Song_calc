@@ -1,68 +1,49 @@
-Sub Song_chain()
-' determines number of 0s needed to deck yourself X% of the time
-' starting deck 60 cards
-'assume turn 4, 4 lands in play, Song of Creation in Play
-' start with 50 cards in deck with Song in Play
-' starting number of 0s needed
-'cast a 0, draw 2, if number of 0s>0 repeat, if not end
+# -*- coding: utf-8 -*-
+"""
+Song of Creation Combo calculator
+Inputs - Deck size, total zeros, zeros in hand
+    Basic: Cast Song on turn 4 OTP, 50 cards remain in your deck
+"""
+import random
+#initial conditions
+W_L=[0,0]
+p_0=0 #odds of hitting a zero
+deck = 50 #starting deck size
+zeros_T=24 #total zeros 
+zerosHand=3 #zeros in hand at start
+zerosDeck=zeros_T-zerosHand
 
-Randomize
-Dim zeros_hand As Integer
-Dim deck As Double 'deck counter
-Dim zeros_T As Double 'total zeros
-Dim zeros_deck As Double 'zeros remaining in deck
-Dim W_L(1) 'counts wins and losses
-    W_L(0) = 0 'wins
-    W_L(1) = 0 'columns
-
-
-For n = 1 To 10000 'how many itterations
-deck = Cells(2, 3) 'source for deck size
-zeros_T = Cells(3, 3) 'source for total zeros
-zeros_hand = Cells(4, 3) 'source for zeros in hand @ start
-zeros_deck = zeros_T - zeros_hand
-
-    While zeros_hand > 0 And deck > 2
-        zeros_hand = zeros_hand - 1 'cast a zero
-
-        outcome = Rnd 'card draw 1
-        hit_first = zeros_deck / deck 'odds to draw a zero
-        If outcome <= hit_first Then 'hit a zero on the first
-        zeros_hand = zeros_hand + 1
-        zeros_deck = zeros_deck - 1
-        deck = deck - 1
-        outcome = Rnd  'card draw 2 if you hit on 1
-        hit_second = zeros_deck / deck 'odds to draw a zero
-            If outcome <= hit_second Then 'hit a zero on the second
-            zeros_hand = zeros_hand + 1
-            zeros_deck = zeros_deck - 1
-            deck = deck - 1
-            Else 'miss on the second
-            deck = deck - 1
-            End If
-        Else  ' miss on the first card draw
-        deck = deck - 1
-        outcome = Rnd 'second card draw if you missed on the first
-        hit_second = zeros_deck / deck 'odds to hit a zero
-            If outcome <= hit_second Then 'hit a zero on the second
-            zeros_hand = zeros_hand + 1
-            zeros_deck = zeros_deck - 1
-            deck = deck - 1
-            Else 'miss on the second card draw
-            deck = deck - 1
-            End If
-        End If
-     Wend
-
-    'Do you win?
-    If deck > 2 Then
-    W_L(1) = W_L(1) + 1 'count the loss
-    Else
-    W_L(0) = W_L(0) + 1 'count the win
-    End If
-Next n
-
-Cells(5, 3) = W_L(0) / 100 'percent wins
-Cells(6, 3) = W_L(1) / 100 'percent losses
-
-End Sub
+For x in range(9999):
+    While (zeros_Hand>0 and deck>2) :
+        zerosHand-=1 #cast a zero from your hand
+        p_0=zerosDeck/deck #probability of hitting a zero
+        outcome=random.randint(0,deck)/deck #draws a random card from the deck and normalizes it
+        If outcome<=p_0: #first card draw hits a zero
+            zerosHand+=1
+            zerosDeck-=1
+            deck-=1
+            p_0=zerosDeck/deck 
+            outcome=random.randint(0,deck)/deck #draws a random card from the deck and normalizes it
+            If outcome<=p_0: #second card draw hits a zero
+                zerosHand+=1
+                zerosDeck-=1
+                deck-=1
+            else:
+                deck-=1
+        else:
+            deck-=1
+            p_0=zerosDeck/deck
+            outcome=random.randint(0,deck)/deck #draws a random card from the deck and normalizesit
+            If outcome<=p_0:
+                zerosHand+=1
+                zerosDeck-=1
+                deck-=1
+            else:
+                deck-=1
+    If deck<=2: #did you win?
+        W_L(0)+=1 #count the win
+    else:
+        W_L(1)+=1 #count the loss
+         
+Print(W_L(0)/100+' to win')
+Print(W_L(1)/100+' to lose')
