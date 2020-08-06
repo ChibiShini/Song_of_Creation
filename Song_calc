@@ -50,5 +50,7 @@ def Song_calc_1(D_i, zT_i, zH_i):
     print(str(W_L[0]/100) + " to win")
     print(str(W_L[1]/100) + " to lose")
     return;
-    
+
+
+for i in range(42,52)
 Song_calc_1(50,24,3)
