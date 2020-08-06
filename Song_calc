@@ -4,46 +4,51 @@ Song of Creation Combo calculator
 Inputs - Deck size, total zeros, zeros in hand
     Basic: Cast Song on turn 4 OTP, 50 cards remain in your deck
 """
-import random
-#initial conditions
-W_L=[0,0]
-p_0=0 #odds of hitting a zero
-deck = 50 #starting deck size
-zeros_T=24 #total zeros 
-zerosHand=3 #zeros in hand at start
-zerosDeck=zeros_T-zerosHand
 
-For x in range(9999):
-    While (zeros_Hand>0 and deck>2) :
-        zerosHand-=1 #cast a zero from your hand
-        p_0=zerosDeck/deck #probability of hitting a zero
-        outcome=random.randint(0,deck)/deck #draws a random card from the deck and normalizes it
-        If outcome<=p_0: #first card draw hits a zero
-            zerosHand+=1
-            zerosDeck-=1
-            deck-=1
-            p_0=zerosDeck/deck 
-            outcome=random.randint(0,deck)/deck #draws a random card from the deck and normalizes it
-            If outcome<=p_0: #second card draw hits a zero
-                zerosHand+=1
-                zerosDeck-=1
-                deck-=1
+def Song_calc_1(D_i, zT_i, zH_i):
+    import random
+    W_L= [0,0] #empty win/loss tracker
+    for i in range(0,10000):
+        D = D_i 
+        zT=zT_i  
+        zH=zH_i 
+        zD=zT-zH
+        while zH>0 and D>2:
+            zH-=1 #cast a zero from your hand
+            p_0=zD/D #probability of hitting a zero
+            outcome=random.randint(0,D)/D #draws a random card from the deck and normalizes it
+            if outcome<=p_0: #first card draw hits a zero
+                zH+=1
+                zD-=1
+                D-=1
+                p_0=zD/D 
+                outcome=random.randint(0,D)/D #draws a random card from the deck and normalizes it
+                if outcome<=p_0: #second card draw hits a zero
+                    zH+=1
+                    zD+=1
+                    D-=1
+                else:
+                    D-=1
             else:
-                deck-=1
+                D-=1
+                p_0=zD/D
+                outcome=random.randint(0,D)/D #draws a random card from the deck and normalizes it  
+                if outcome<=p_0:
+                    zH+=1
+                    zD-=1
+                    D-=1
+                else:
+                    D-=1
+        if D<=2:
+            W_L[0]+=1
         else:
-            deck-=1
-            p_0=zerosDeck/deck
-            outcome=random.randint(0,deck)/deck #draws a random card from the deck and normalizesit
-            If outcome<=p_0:
-                zerosHand+=1
-                zerosDeck-=1
-                deck-=1
-            else:
-                deck-=1
-    If deck<=2: #did you win?
-        W_L(0)+=1 #count the win
-    else:
-        W_L(1)+=1 #count the loss
-         
-Print(W_L(0)/100+' to win')
-Print(W_L(1)/100+' to lose')
+            W_L[1]+=1
+
+    print(str(D_i)+" starting deck size")
+    print(str(zT_i)+ " total zeros in deck")
+    print(str(zH_i)+ " zeros in hand at start")
+    print(str(W_L[0]/100) + " to win")
+    print(str(W_L[1]/100) + " to lose")
+    return;
+    
+Song_calc_1(50,24,3)
