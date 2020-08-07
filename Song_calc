@@ -4,9 +4,9 @@ Song of Creation Combo calculator
 Inputs - Deck size, total zeros, zeros in hand
     Basic: Cast Song on turn 4 OTP, 50 cards remain in your deck
 """
-# output_zH=[]
-# output_zT=[]
-# output_p0=[]
+output_zH=[]
+output_zT=[]
+output_p0=[]
 
 def Song_calc_1(D_i, zT_i, zH_i):
     import random
@@ -53,15 +53,15 @@ def Song_calc_1(D_i, zT_i, zH_i):
     # print(str(W_L[0]/100) + " to win")
     # print(str(W_L[1]/100) + " to lose")
     
-    output_zH[k]=zH_i
-    output_zT[i]=zT_i
-    output_p0[i]=w_L[0]
+    output_zH.append(zH_i)
+    output_zT.append(zT-i)
+    output_p0.append(w_L[0])
     return;
-
 
 for j in range(20,28):
  for k in range(1,6):
   Song_calc_1(50,j,k)
+
 print(str(output_zH)))
 print(str(output_zT))
 print(str(output_p0))
