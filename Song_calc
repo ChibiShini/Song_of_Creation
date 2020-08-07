@@ -52,5 +52,6 @@ def Song_calc_1(D_i, zT_i, zH_i):
     return;
 
 
-for i in range(42,52)
-Song_calc_1(50,24,3)
+for j in range(20,28):
+ for k in range(1,6):
+  Song_calc_1(50,j,k)
