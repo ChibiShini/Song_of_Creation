@@ -54,7 +54,7 @@ def Song_calc_1(D_i, zT_i, zH_i):
     # print(str(W_L[1]/100) + " to lose")
     
     output_zH.append(zH_i)
-    output_zT.append(zT-i)
+    output_zT.append(zT_i)
     output_p0.append(W_L[0])
     return;
 
