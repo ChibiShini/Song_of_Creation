@@ -55,13 +55,13 @@ def Song_calc_1(D_i, zT_i, zH_i):
     
     output_zH.append(zH_i)
     output_zT.append(zT-i)
-    output_p0.append(w_L[0])
+    output_p0.append(W_L[0])
     return;
 
 for j in range(20,28):
  for k in range(1,6):
   Song_calc_1(50,j,k)
 
-print(str(output_zH)))
+print(str(output_zH))
 print(str(output_zT))
 print(str(output_p0))
