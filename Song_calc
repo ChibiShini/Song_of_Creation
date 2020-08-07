@@ -55,7 +55,7 @@ def Song_calc_1(D_i, zT_i, zH_i):
     
     output_zH.append(zH_i)
     output_zT.append(zT_i)
-    output_p0.append(W_L[0])
+    output_p0.append(W_L[0]/100)
     return;
 
 for j in range(20,28):
