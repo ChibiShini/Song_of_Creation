@@ -47,18 +47,21 @@ def Song_calc_1(D_i, zT_i, zH_i):
         else:
             W_L[1]+=1
 
-    print(str(D_i)+" starting deck size")
-    print(str(zT_i)+ " total zeros in deck")
-    print(str(zH_i)+ " zeros in hand at start")
-    print(str(W_L[0]/100) + " to win")
-    print(str(W_L[1]/100) + " to lose")
+    # print(str(D_i)+" starting deck size")
+    # print(str(zT_i)+ " total zeros in deck")
+    # print(str(zH_i)+ " zeros in hand at start")
+    # print(str(W_L[0]/100) + " to win")
+    # print(str(W_L[1]/100) + " to lose")
     
-    # output_zH[k]=zH_i
-    # output_zT[i]=zT_i
-    # output_p0[i]=w_L[0]
+    output_zH[k]=zH_i
+    output_zT[i]=zT_i
+    output_p0[i]=w_L[0]
     return;
 
 
 for j in range(20,28):
  for k in range(1,6):
   Song_calc_1(50,j,k)
+print(str(output_zH)))
+print(str(output_zT))
+print(str(output_p0))
