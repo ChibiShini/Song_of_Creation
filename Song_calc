@@ -65,3 +65,12 @@ for j in range(20,28):
 print(str(output_zH))
 print(str(output_zT))
 print(str(output_p0))
+
+X,Y,Z=output_zH,output_zT,output_p0
+
+# Plot X,Y,Z
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.plot_trisurf(X, Y, Z, color='Blue', edgecolors='green', alpha=0.5)
+ax.scatter(X, Y, Z, c='red')
+plt.show()
