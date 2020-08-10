@@ -4,63 +4,63 @@ Song of Creation Combo calculator
 Inputs - Deck size, total zeros, zeros in hand
     Basic: Cast Song on turn 4 OTP, 50 cards remain in your deck
 """
-import numpy as np
-import matplotlib.pyplot as plt
-import random
-from mpl_toolkits.mplot3d import axes3d
-
 output_zH=[]
 output_zT=[]
 output_p0=[]
+D_i=50
 
-def Song_calc_1(D_i, zT_i, zH_i):
-    W_L= [0,0] #empty win/loss tracker
-    for i in range(0,10000):
-        D = D_i 
-        zT=zT_i  
-        zH=zH_i 
-        zD=zT-zH
-        while zH>0 and D>2:
-            zH-=1 #cast a zero from your hand
-            p_0=zD/D #probability of hitting a zero
-            outcome=random.randint(0,D)/D #draws a random card from the deck and normalizes it
-            if outcome<=p_0: #first card draw hits a zero
-                zH+=1
-                zD-=1
-                D-=1
-                p_0=zD/D 
-                outcome=random.randint(0,D)/D #draws a random card from the deck and normalizes it
-                if outcome<=p_0: #second card draw hits a zero
-                    zH+=1
-                    zD+=1
-                    D-=1
-                else:
-                    D-=1
-            else:
-                D-=1
-                p_0=zD/D
-                outcome=random.randint(0,D)/D #draws a random card from the deck and normalizes it  
-                if outcome<=p_0:
-                    zH+=1
-                    zD-=1
-                    D-=1
-                else:
-                    D-=1
-        if D<=2:
-            W_L[0]+=1
-        else:
-            W_L[1]+=1
+import numpy as np
+from mpl_toolkits.mplot3d import Axes3D  
+# Axes3D import has side effects, it enables using projection='3d' in add_subplot
+import matplotlib.pyplot as plt
+import random
 
-    # print(str(D_i)+" starting deck size")
-    # print(str(zT_i)+ " total zeros in deck")
-    # print(str(zH_i)+ " zeros in hand at start")
-    # print(str(W_L[0]/100) + " to win")
-    # print(str(W_L[1]/100) + " to lose")
-    
-    output_zH.append(zH_i)
-    output_zT.append(zT_i)
-    output_p0.append(W_L[0]/100)
-    return;
+def Song_calc_1(D_i,zT_i,zH_i):
+            W_L= [0,0] #empty win/loss tracker
+            for i in range(0,10000):
+                D = D_i 
+                zT=zT_i  
+                zH=zH_i 
+                zD=zT-zH
+                while zH>0 and D>2:
+                    zH-=1 #cast a zero from your hand
+                    p_0=zD/D #probability of hitting a zero
+                    outcome=random.randint(0,D)/D #draws a random card from the deck and normalizes it
+                    if outcome<=p_0: #first card draw hits a zero
+                        zH+=1
+                        zD-=1
+                        D-=1
+                        p_0=zD/D 
+                        outcome=random.randint(0,D)/D #draws a random card from the deck and normalizes it
+                        if outcome<=p_0: #second card draw hits a zero
+                            zH+=1
+                            zD+=1
+                            D-=1
+                        else:
+                            D-=1
+                    else:
+                        D-=1
+                        p_0=zD/D
+                        outcome=random.randint(0,D)/D #draws a random card from the deck and normalizes it  
+                        if outcome<=p_0:
+                            zH+=1
+                            zD-=1
+                            D-=1
+                        else:
+                            D-=1
+                if D<=2:
+                    W_L[0]+=1
+                else:
+                    W_L[1]+=1                 
+            # print(str(D_i)+" starting deck size")
+            # print(str(zT_i)+ " total zeros in deck")
+            # print(str(zH_i)+ " zeros in hand at start")
+            # print(str(W_L[0]/100) + " to win")
+            # print(str(W_L[1]/100) + " to lose")
+            output_p0.append(W_L[0]/100)     
+            output_zH.append(zH_i)
+            output_zT.append(zT_i)           
+            return;    
 
 for j in range(20,28):
  for k in range(1,6):
@@ -75,6 +75,9 @@ X,Y,Z=output_zH,output_zT,output_p0
 # Plot X,Y,Z
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-ax.plot_trisurf(X, Y, Z, color='Blue', edgecolors='green', alpha=0.5)
-ax.scatter(X, Y, Z, c='red')
+ax.plot_trisurf(X, Y, Z, color='Blue', edgecolors='Green', alpha=0.5)
+ax.scatter(X, Y, Z, c='Red')
+ax.set_xlabel('Zeros in Hand')
+ax.set_ylabel('Total Zeros')
+ax.set_zlabel('Percent to win')
 plt.show()
