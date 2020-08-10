@@ -22,7 +22,7 @@ def Song_calc_1(D_i,zT_i,zH_i):
                 zT=zT_i  
                 zH=zH_i 
                 zD=zT-zH
-                while zH>0 and D>2:
+                while zH>0 and D>3:
                     zH-=1 #cast a zero from your hand
                     p_0=zD/D #probability of hitting a zero
                     outcome=random.randint(0,D)/D #draws a random card from the deck and normalizes it
