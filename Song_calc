@@ -64,7 +64,7 @@ def Song_calc_1(D_i,zT_i,zH_i):
 
 for j in range(20,29):
  for k in range(1,5):
-  Song_calc_1(50,j,k)
+  Song_calc_1(D_i,j,k)
 
 X,Y,Z=output_zT,output_zH,output_p0
 
