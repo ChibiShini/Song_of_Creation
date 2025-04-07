@@ -1,90 +1,30 @@
 # -*- coding: utf-8 -*-
 """
 Song of Creation Combo calculator
-Inputs - Deck size, total zeros, zeros in hand
-    Basic: Cast Song on turn 4 OTP, 50 cards remain in your deck
+Inputs - Deck size, clones in deck, reanimation in deck
+    Basic: Cast Gyruda on turn 5. Do you deck yourself?
 """
-output_zH=[]
-output_zT=[]
-output_p0=[]
-LozH=[]
-LozT=[]
-Lop0=[]
-D_i=50
-
 import numpy as np
 from mpl_toolkits.mplot3d import Axes3D  
 # Axes3D import has side effects, it enables using projection='3d' in add_subplot
 import matplotlib.pyplot as plt
 import random
 
-def Song_calc_1(D_i,zT_i,zH_i):
-            W_L= [0,0] #empty win/loss tracker
-            for i in range(0,10000):
-                D = D_i 
-                zT=zT_i  
-                zH=zH_i 
-                zD=zT-zH
-                while zH>0 and D>2:
-                    zH-=1 #cast a zero from your hand
-                    p_0=zD/D #probability of hitting a zero
-                    outcome=random.randint(0,D)/D #draws a random card from the deck and normalizes it
-                    if outcome<=p_0: #first card draw hits a zero
-                        zH+=1
-                        zD-=1
-                        D-=1
-                        p_0=zD/D 
-                        outcome=random.randint(0,D)/D #draws a random card from the deck and normalizes it
-                        if outcome<=p_0: #second card draw hits a zero
-                            zH+=1
-                            zD+=1
-                            D-=1
-                        else:
-                            D-=1
-                    else:
-                        D-=1
-                        p_0=zD/D
-                        outcome=random.randint(0,D)/D #draws a random card from the deck and normalizes it  
-                        if outcome<=p_0:
-                            zH+=1
-                            zD-=1
-                            D-=1
-                        else:
-                            D-=1
-                if D<=2:
-                    W_L[0]+=1
-                else:
-                    W_L[1]+=1                 
-            # print(str(D_i)+" starting deck size")
-            # print(str(zT_i)+ " total zeros in deck")
-            # print(str(zH_i)+ " zeros in hand at start")
-            # print(str(W_L[0]/100) + " to win")
-            # print(str(W_L[1]/100) + " to lose")
-            output_p0.append(W_L[0]/100)     
-            output_zH.append(zH_i)
-            output_zT.append(zT_i)           
-            return;    
+"""
+Deck_Size = 99
+Clones_start=25
+opening_hand = 7
+start_turn = 5
+hyp_geo for number of clones+reanimations already in hand by start turn
+N_c = CLones_start-hyp_gep
+D_s = Deck_Size - start_turn-opening_hand
 
-# for n in range(46,52):
-for j in range(20,29):
- for k in range(1,5):
-  Song_calc_1(50,j,k)
-LozT.append(output_zT)
-LozH.append(output_zH)
-Lop0.append(output_p0)
+Fill a 1xD_s array randomly with 1s and 0s. for the number of N_c in D_s
 
-# Plot X,Y,Z
-X,Y,Z = output_zH, output_zT, output_p0
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-#for m in range(0,5):
-ax.plot_trisurf(X,Y,Z, color='Blue', edgecolors='Green', alpha=0.6)
-ax.scatter(X, Y, Z, c='Red')
-ax.set_xlabel('Zeros in Hand')
-ax.set_ylabel('Total Zeros')
-ax.set_zlabel('Percent to win')
-plt.title('surface plot for turn 4 OTP')
-plt.show()
-# print(str(output_zH))
-# print(str(output_zT))
-# print(str(output_p0))
+loop 
+Gyr_tr = 4
+sum top 4 indexes, if >=1 remove the top 4 indexes from the array, (if>=2 add result-1 to N_c_GY), , repeat loop
+loop until sum=0 or D_s=0
+
+
+"""
