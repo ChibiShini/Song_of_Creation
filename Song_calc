@@ -24,7 +24,5 @@ Fill a 1xD_s array randomly with 1s and 0s. for the number of N_c in D_s
 loop 
 Gyr_tr = 4
 sum top 4 indexes, if >=1 remove the top 4 indexes from the array, (if>=2 add result-1 to N_c_GY), , repeat loop
-loop until sum=0 or D_s=0
-
-
+loop until sum=0 or D_s_array<=0
 """
