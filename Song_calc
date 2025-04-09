@@ -14,11 +14,17 @@ Starting_deck=99
 Clones_start=25
 opening_hand=7
 start_turn=5
-# hyp_geo for number of clones+reanimations already in hand by start turn
-N_c=np.random.hypergeometric(Clones_start,Starting_deck-Clones_start,opening_hand,Starting_deck) 
-D_s = Deck_Size - start_turn-opening_hand
+Clones_hand=2
+Gyr_tri=4
+Clones_remaining=Clones_start=Clones_hand #define loop start parameters 
+D_s = Deck_Size - start_turn-opening_hand #define loop start parameters
+
+#create deck array
+SimDeck=[]
+For 0 to Clones_remaining
+SimDeck.append[1]
+For 0 to (D_s-Clones_remaining)
+SimDeck.append[0]
+random.shuffle(SimDeck)
 
 
-loop 
-find odds of 1 or more clones in 4 cards from the remaining deck.
-make random roll, if random roll exceeds odds, repeat loop.
