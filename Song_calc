@@ -3,7 +3,7 @@
 Gyruda decking calculator
 Inputs - Deck size, clones* in deck
 *clones is a sum total of clones and reanimation effects that function as clones
-    Basic: Cast Gyruda on turn 5. Do you deck yourself?
+    Basic: Cast Gyruda on turn 6. Do you deck yourself?
 """
 import numpy as np
 from mpl_toolkits.mplot3d import Axes3D  
@@ -14,7 +14,7 @@ import random
 Starting_deck=99
 Clones_start=25
 opening_hand=7
-start_turn=5
+start_turn=6
 Clones_hand=2
 Gyr_try=4
 Clones_remaining=Clones_start=Clones_hand #define loop start parameters 
