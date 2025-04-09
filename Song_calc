@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Song of Creation Combo calculator
-Inputs - Deck size, clones in deck, reanimation in deck
+Gyruda decking calculator
+Inputs - Deck size, clones* in deck
     Basic: Cast Gyruda on turn 5. Do you deck yourself?
 """
 import numpy as np
@@ -17,14 +17,31 @@ start_turn=5
 Clones_hand=2
 Gyr_tri=4
 Clones_remaining=Clones_start=Clones_hand #define loop start parameters 
-D_s = Deck_Size - start_turn-opening_hand #define loop start parameters
+D_s = Starting_deck-start_turn-opening_hand #define loop start parameters
 
 #create deck array
 SimDeck=[]
-For 0 to Clones_remaining
-SimDeck.append[1]
-For 0 to (D_s-Clones_remaining)
-SimDeck.append[0]
+For x in Clones_remaining
+    SimDeck.append[1]
+For x in (D_s-Clones_remaining)
+    SimDeck.append[0]
 random.shuffle(SimDeck)
+#print(SimDeck)
 
+#resolving Gyruda and subsequent clones trigger
 
+i=1
+While i>0
+#Deck check!
+GW=len(SimDeck)
+If GW<=4:
+    break
+Else:
+    Repeat=SimDeck[Gry_tri-4]+SimDeck[Gry_tri-3]+SimDeck[Gry_tri-2]+SimDeck[Gry_tri-1]
+    SimDeck=SimDeck.del[0,1,2,3]
+    GY_c=Repeat-1
+i=Repeat
+
+print(GW)
+print(SimDeck)
+print(GY_c)
