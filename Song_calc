@@ -16,7 +16,7 @@ Clones_start=25
 opening_hand=7
 start_turn=5
 Clones_hand=2
-Gyr_tri=4
+Gyr_try=4
 Clones_remaining=Clones_start=Clones_hand #define loop start parameters 
 D_s = Starting_deck-start_turn-opening_hand #define loop start parameters
 
@@ -35,7 +35,7 @@ i=1
 While i>0
 #Deck check!
 GW=len(SimDeck)
-If GW<=4:
+If GW<4:
     repeat=0
 Else:
     Repeat=SimDeck[Gry_tri-4]+SimDeck[Gry_tri-3]+SimDeck[Gry_tri-2]+SimDeck[Gry_tri-1]
