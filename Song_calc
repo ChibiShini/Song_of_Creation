@@ -10,19 +10,15 @@ from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 import random
 
-"""
-Deck_Size = 99
+Starting_deck=99
 Clones_start=25
-opening_hand = 7
-start_turn = 5
-hyp_geo for number of clones+reanimations already in hand by start turn
-N_c = CLones_start-hyp_gep
+opening_hand=7
+start_turn=5
+# hyp_geo for number of clones+reanimations already in hand by start turn
+N_c=np.random.hypergeometric(Clones_start,Starting_deck-Clones_start,opening_hand,Starting_deck) 
 D_s = Deck_Size - start_turn-opening_hand
 
-Fill a 1xD_s array randomly with 1s and 0s. for the number of N_c in D_s
 
 loop 
-Gyr_tr = 4
-sum top 4 indexes, if >=1 remove the top 4 indexes from the array, (if>=2 add result-1 to N_c_GY), , repeat loop
-loop until sum=0 or D_s_array<=0
-"""
+find odds of 1 or more clones in 4 cards from the remaining deck.
+make random roll, if random roll exceeds odds, repeat loop.
