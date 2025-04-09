@@ -38,7 +38,7 @@ GW=len(SimDeck)
 If GW<4:
     repeat=0
 Else:
-    Repeat=SimDeck[Gry_tri-4]+SimDeck[Gry_tri-3]+SimDeck[Gry_tri-2]+SimDeck[Gry_tri-1]
+    Repeat=SimDeck[Gry_try-4]+SimDeck[Gry_try-3]+SimDeck[Gry_try-2]+SimDeck[Gry_try-1]
     SimDeck=SimDeck.del[0,1,2,3]
     GY_c=Repeat-1
 i=Repeat
