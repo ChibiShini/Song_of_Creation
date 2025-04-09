@@ -16,8 +16,8 @@ opening_hand=7
 start_turn=5
 Clones_hand=2
 gyr_try=4
-Clones_min=25
-Clones_max=26
+Clones_min=26
+Clones_max=30
 GW=[] #output array
 for y in range(Clones_min,Clones_max):
     GY_c=0
