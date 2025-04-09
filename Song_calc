@@ -36,7 +36,7 @@ While i>0
 #Deck check!
 GW=len(SimDeck)
 If GW<=4:
-    break
+    repeat=0
 Else:
     Repeat=SimDeck[Gry_tri-4]+SimDeck[Gry_tri-3]+SimDeck[Gry_tri-2]+SimDeck[Gry_tri-1]
     SimDeck=SimDeck.del[0,1,2,3]
