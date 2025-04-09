@@ -9,6 +9,7 @@ import numpy as np
 from mpl_toolkits.mplot3d import Axes3D  
 # Axes3D import has side effects, it enables using projection='3d' in add_subplot
 import matplotlib.pyplot as plt
+import statistics
 import random
 
 Starting_deck=99
@@ -16,44 +17,50 @@ opening_hand=7
 start_turn=5
 Clones_hand=2
 gyr_try=4
-Clones_min=26
-Clones_max=30
-GW=[] #output array
-for y in range(Clones_min,Clones_max):
-    GY_c=0
-    Clones_remaining=y-Clones_hand #define loop start parameters 
+Clones_min=25
+Clones_max=28
+result=[] #output array
+N_c_plot_list=[]
+result_plot_list=[]
+for N_c in range(Clones_min,Clones_max):
+
+    Clones_remaining=N_c-Clones_hand #define loop start parameters 
     D_s = Starting_deck-start_turn-opening_hand #define loop start parameters
 
-#create deck array
-    SimDeck=[]
-    for x in range(Clones_remaining):
-        SimDeck.append(1)
-    for x in range(D_s-Clones_remaining):
-        SimDeck.append(0)
 
-    #shuffle the deck
-    for a in range(3):
+    for stat_s in range(100):
+        #create deck array
+        SimDeck=[]
+        for x in range(Clones_remaining):
+            SimDeck.append(1)
+        for y in range(D_s-Clones_remaining):
+            SimDeck.append(0)
+    
+        #shuffle the deck
         random.shuffle(SimDeck)
-
-    #print(SimDeck)
-
-    #resolving Gyruda and subsequent clones trigger
-    i=1
-    while i>0:
-        #Deck check!
-        comp=len(SimDeck)
-        if comp<=4:
-            repeat=0
-        else:
-            Repeat=SimDeck[gyr_try-4]+SimDeck[gyr_try-3]+SimDeck[gyr_try-2]+SimDeck[gyr_try-1]
-            b=0
-            for b in range(gyr_try):
-                del SimDeck[0]
-                GY_c=GY_c+(Repeat-1)
-                i=Repeat
-
-        #print(comp)
+    
         #print(SimDeck)
-        #print(GY_c)
-    GW.append(comp)
-print(GW)
+    
+        #resolving Gyruda and subsequent clones trigger
+        i=1
+        while i>0:
+            #Deck check!
+            D_s=len(SimDeck)
+            if D_s<=4:
+                repeat=0
+            else:
+                repeat=SimDeck[gyr_try-4]+SimDeck[gyr_try-3]+SimDeck[gyr_try-2]+SimDeck[gyr_try-1]
+                b=0
+                for b in range(gyr_try):
+                    del SimDeck[0]
+                    #GY_c=GY_c+(Repeat-1)
+            i=repeat
+    
+            #print(comp)
+            #print(SimDeck)
+            #print(GY_c)
+        result.append(D_s)
+        result_avg=statistics.mean(result)
+    N_c_plot_list.append(N_c)
+    result_plot_list.append(result_avg)
+print(N_c_plot_list,result_plot_list)
