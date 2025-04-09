@@ -2,6 +2,7 @@
 """
 Gyruda decking calculator
 Inputs - Deck size, clones* in deck
+*clones is a sum total of clones and reanimation effects that function as clones
     Basic: Cast Gyruda on turn 5. Do you deck yourself?
 """
 import numpy as np
