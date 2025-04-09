@@ -3,7 +3,7 @@
 Gyruda decking calculator
 Inputs - Deck size, clones* in deck
 *clones is a sum total of clones and reanimation effects that function as clones
-    Basic: Cast Gyruda on turn 6. Do you deck yourself?
+    Basic: Cast Gyruda on turn 5. Do you deck yourself?
 """
 import numpy as np
 from mpl_toolkits.mplot3d import Axes3D  
@@ -12,37 +12,48 @@ import matplotlib.pyplot as plt
 import random
 
 Starting_deck=99
-Clones_start=25
 opening_hand=7
-start_turn=6
+start_turn=5
 Clones_hand=2
-Gyr_try=4
-Clones_remaining=Clones_start=Clones_hand #define loop start parameters 
-D_s = Starting_deck-start_turn-opening_hand #define loop start parameters
+gyr_try=4
+Clones_min=25
+Clones_max=26
+GW=[] #output array
+for y in range(Clones_min,Clones_max):
+    GY_c=0
+    Clones_remaining=y-Clones_hand #define loop start parameters 
+    D_s = Starting_deck-start_turn-opening_hand #define loop start parameters
 
 #create deck array
-SimDeck=[]
-For x in Clones_remaining
-    SimDeck.append[1]
-For x in (D_s-Clones_remaining)
-    SimDeck.append[0]
-random.shuffle(SimDeck)
-#print(SimDeck)
+    SimDeck=[]
+    for x in range(Clones_remaining):
+        SimDeck.append(1)
+    for x in range(D_s-Clones_remaining):
+        SimDeck.append(0)
 
-#resolving Gyruda and subsequent clones trigger
+    #shuffle the deck
+    for a in range(3):
+        random.shuffle(SimDeck)
 
-i=1
-While i>0
-#Deck check!
-GW=len(SimDeck)
-If GW<4:
-    repeat=0
-Else:
-    Repeat=SimDeck[Gry_try-4]+SimDeck[Gry_try-3]+SimDeck[Gry_try-2]+SimDeck[Gry_try-1]
-    SimDeck=SimDeck.del[0,1,2,3]
-    GY_c=Repeat-1
-i=Repeat
+    #print(SimDeck)
 
+    #resolving Gyruda and subsequent clones trigger
+    i=1
+    while i>0:
+        #Deck check!
+        comp=len(SimDeck)
+        if comp<=4:
+            repeat=0
+        else:
+            Repeat=SimDeck[gyr_try-4]+SimDeck[gyr_try-3]+SimDeck[gyr_try-2]+SimDeck[gyr_try-1]
+            b=0
+            for b in range(gyr_try):
+                del SimDeck[0]
+                GY_c=GY_c+(Repeat-1)
+                i=Repeat
+
+        #print(comp)
+        #print(SimDeck)
+        #print(GY_c)
+    GW.append(comp)
 print(GW)
-print(SimDeck)
-print(GY_c)
