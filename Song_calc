@@ -14,43 +14,45 @@ import random
 
 Starting_deck=99
 opening_hand=7
-land_fetches=3 #rampant growth effects, and fetch lands
+land_fetches=3 #rampant growth effects, and fetch lands marginally reduce deck size
 start_turn=5
 Clones_hand=2
 gyr_try=4
 Clones_min=25
 Clones_max=30
-result=[] #output array
 N_c_plot_list=[]
-#result_plot_list=[]
+result_plot_list=[]
 for N_c in range(Clones_min,Clones_max):
+    Ind_result=[] #output list for the individual simulation
+    GY_c=0 #graveyard counter start
     Clones_remaining=N_c-Clones_hand #define loop start parameters 
     D_s = Starting_deck-start_turn-opening_hand-land_fetches #define loop start parameters
-
-    #create deck array
-    SimDeck=[]
-    for x in range(Clones_remaining):
-        SimDeck.append(1)
-    for y in range(D_s-Clones_remaining):
-        SimDeck.append(0)
-    #shuffle the deck
-    random.shuffle(SimDeck)
-    #print(SimDeck)
-
-    #resolving Gyruda and subsequent clones trigger
-    i=1 #initial trigger
-    while i>0:
-        #Deck check!
-        D_s=len(SimDeck)
-        if D_s<=4:
-            repeat=0
-        else:
-            repeat=SimDeck[gyr_try-4]+SimDeck[gyr_try-3]+SimDeck[gyr_try-2]+SimDeck[gyr_try-1]
-            b=0
-            for b in range(gyr_try):
-                del SimDeck[0]
-            #GY_c=GY_c+(Repeat-1) FIGURE OUT THE GRAVEYARD COUNTER
-        i=repeat
-    result.append(D_s)
+    for stat_s in range(10): #statistically significant simulation   
+        SimDeck=[] #create/empty deck list
+        x=0 #resetting counters
+        y=0 #resetting counters
+        for x in range(Clones_remaining):
+            SimDeck.append(1)
+        for y in range(D_s-Clones_remaining):
+            SimDeck.append(0)
+        random.shuffle(SimDeck) #shuffle the deck
+        #print(SimDeck)
+        #resolving Gyruda and subsequent clones trigger
+        i=1 #initial trigger
+        while i>0:
+            #Deck check!
+            D_s=len(SimDeck)
+            if D_s<4:
+                repeat=0
+            else:
+                repeat=SimDeck[gyr_try-4]+SimDeck[gyr_try-3]+SimDeck[gyr_try-2]+SimDeck[gyr_try-1]
+                b=0
+                for b in range(gyr_try):
+                    del SimDeck[0]
+                if repeat<>0:
+                    #GY_c=GY_c+(Repeat-1) #FIGURE OUT THE GRAVEYARD COUNTER
+            i=repeat
+        Ind_result.append(D_s)
+    result_plot_list.append(mean(Ind_result))
     N_c_plot_list.append(N_c)
-print(N_c_plot_list,result)
+print(N_c_plot_list,result_plot_list)
