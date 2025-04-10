@@ -24,7 +24,6 @@ result=[] #output array
 N_c_plot_list=[]
 #result_plot_list=[]
 for N_c in range(Clones_min,Clones_max):
-
     Clones_remaining=N_c-Clones_hand #define loop start parameters 
     D_s = Starting_deck-start_turn-opening_hand-land_fetches #define loop start parameters
 
@@ -34,14 +33,12 @@ for N_c in range(Clones_min,Clones_max):
         SimDeck.append(1)
     for y in range(D_s-Clones_remaining):
         SimDeck.append(0)
-
     #shuffle the deck
     random.shuffle(SimDeck)
-
     #print(SimDeck)
 
     #resolving Gyruda and subsequent clones trigger
-    i=1
+    i=1 #initial trigger
     while i>0:
         #Deck check!
         D_s=len(SimDeck)
