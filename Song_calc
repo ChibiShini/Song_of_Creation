@@ -20,6 +20,7 @@ Clones_hand=2
 gyr_try=4
 Clones_min=25
 Clones_max=30
+
 N_c_plot_list=[]
 result_plot_list=[]
 for N_c in range(Clones_min,Clones_max):
@@ -49,10 +50,10 @@ for N_c in range(Clones_min,Clones_max):
                 b=0
                 for b in range(gyr_try):
                     del SimDeck[0]
-                if repeat<>0:
-                    #GY_c=GY_c+(Repeat-1) #FIGURE OUT THE GRAVEYARD COUNTER
+                if repeat!=0:
+                    GY_c=GY_c+(repeat-1) #FIGURE OUT THE GRAVEYARD COUNTER
             i=repeat
         Ind_result.append(D_s)
-    result_plot_list.append(mean(Ind_result))
     N_c_plot_list.append(N_c)
+    result_plot_list.append(statistics.mean(Ind_result))
 print(N_c_plot_list,result_plot_list)
