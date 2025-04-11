@@ -14,22 +14,23 @@ import random
 
 Starting_deck=99
 opening_hand=7
-land_fetches=3 #rampant growth effects, and fetch lands marginally reduce deck size
+land_fetches=4 #rampant growth effects, and fetch lands marginally reduce deck size
 start_turn=5
 Clones_hand=2
 gyr_try=4
 Clones_min=25
-Clones_max=30
-
+Clones_max=36
+SimDeck=[]
 N_c_plot_list=[]
 result_plot_list=[]
 for N_c in range(Clones_min,Clones_max):
     Ind_result=[] #output list for the individual simulation
     GY_c=0 #graveyard counter start
     Clones_remaining=N_c-Clones_hand #define loop start parameters 
-    D_s = Starting_deck-start_turn-opening_hand-land_fetches #define loop start parameters
-    for stat_s in range(10): #statistically significant simulation   
-        SimDeck=[] #create/empty deck list
+    D_start = Starting_deck-start_turn-opening_hand-land_fetches #define loop start parameters
+    for stat_s in range(1000): #statistically significant simulation   
+        D_s=D_start
+        SimDeck.clear() #clear deck list
         x=0 #resetting counters
         y=0 #resetting counters
         for x in range(Clones_remaining):
@@ -43,15 +44,13 @@ for N_c in range(Clones_min,Clones_max):
         while i>0:
             #Deck check!
             D_s=len(SimDeck)
-            if D_s<4:
-                repeat=0
-            else:
+            if D_s>=4:
                 repeat=SimDeck[gyr_try-4]+SimDeck[gyr_try-3]+SimDeck[gyr_try-2]+SimDeck[gyr_try-1]
                 b=0
                 for b in range(gyr_try):
-                    del SimDeck[0]
-                if repeat!=0:
-                    GY_c=GY_c+(repeat-1) #FIGURE OUT THE GRAVEYARD COUNTER
+                    SimDeck.pop(0)
+            else:
+                repeat=0
             i=repeat
         Ind_result.append(D_s)
     N_c_plot_list.append(N_c)
